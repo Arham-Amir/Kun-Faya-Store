@@ -16,7 +16,7 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
       className="w-[220px] flex flex-col gap-2"
     >
       <Image
-        src={product.media[0]}
+        src={product.media[product.media.length-1]}
         alt="product"
         width={250}
         height={300}
@@ -27,7 +27,7 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
         <p className="text-small-medium text-grey-2">{product.category}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-body-bold">${product.price}</p>
+        <p className="text-body-bold">Rs.{product.price}</p>
         <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
       </div>
     </Link>

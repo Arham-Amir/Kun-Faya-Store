@@ -12,15 +12,17 @@ const CollectionDetails = async ({
 
   return (
     <div className="px-10 py-5 flex flex-col items-center gap-8">
-      <Image
+      {/* <Image
         src={collectionDetails.image}
         width={1500}
         height={1000}
         alt="collection"
-        className="w-full h-[400px] object-cover rounded-xl"
-      />
-      <p className="text-heading3-bold text-grey-2">{collectionDetails.title}</p>
-      <p className="text-body-normal text-grey-2 text-center max-w-[900px]">{collectionDetails.description}</p>
+        className="w-full h-[400px] object-scale-down rounded-xl"
+      /> */}
+      <div className="w-full py-5 rounded-xl flex flex-col items-center gap-8 bg-gray-200">
+        <p className="text-heading3-bold text-black">{collectionDetails.title}</p>
+        <p className="text-body-normal text-black text-center max-w-[900px]">{collectionDetails.description}</p>
+      </div>
       <div className="flex flex-wrap gap-16 justify-center">
         {collectionDetails.products.map((product: ProductType) => (
           <ProductCard key={product._id} product={product} />

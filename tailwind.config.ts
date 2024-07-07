@@ -87,6 +87,11 @@ const config: Config = {
       ],
     },
     extend: {
+      backgroundColor: {
+        "red-1": "#FF0000",
+        "grey-1": "#F7F7F7",
+        "grey-2": "#8A8A8A",
+      },
       colors: {
         "red-1": "#FF0000",
         "grey-1": "#F7F7F7",
@@ -94,7 +99,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [require("tailwind-scrollbar-hide"), require('daisyui'),],
 };
 export default config;
 
