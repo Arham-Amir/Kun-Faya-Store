@@ -1,5 +1,6 @@
 import { getProducts } from "@/lib/actions/actions";
 import { ShoppingCart, Star, StarIcon } from "lucide-react";
+import { AnimatedCard } from "./animatedCard";
 // import ProductCard from "./ProductCard";
 
 const ProductList = async () => {
@@ -13,7 +14,7 @@ const ProductList = async () => {
       ) : (
         <div className="flex flex-wrap justify-center gap-16">
           {products.map((product: ProductType) => (
-            <ProductCard key={product._id} product={product} />
+            <AnimatedCard key={product._id} product={product} />
           ))}
         </div>
       )}
@@ -43,7 +44,7 @@ function ProductCard({ product }: any) {
       </div>
       <h2 className="whitespace-break-spaces font-semibold">Rs.{product.price}</h2>
       <button className="p-2 px-6 bg-red-1 text-white rounded-md">
-      Add To Cart
+        Add To Cart
       </button>
     </div>
   </section>
