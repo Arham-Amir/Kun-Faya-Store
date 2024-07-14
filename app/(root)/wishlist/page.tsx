@@ -1,7 +1,7 @@
 "use client"
 
+import { AnimatedCard } from "@/components/animatedCard"
 import Loader from "@/components/Loader"
-import ProductCard from "@/components/ProductCard"
 import { getProductDetails } from "@/lib/actions/actions"
 import { useUser } from "@clerk/nextjs"
 import { use, useEffect, useState } from "react"
@@ -64,7 +64,7 @@ const Wishlist = () => {
 
       <div className="flex flex-wrap justify-center gap-16">
         {wishlist.map((product) => (
-          <ProductCard key={product._id} product={product} updateSignedInUser={updateSignedInUser}/>
+          <AnimatedCard key={product._id} product={product} updateSignedInUser={updateSignedInUser}/>
         ))}
       </div>
     </div>
