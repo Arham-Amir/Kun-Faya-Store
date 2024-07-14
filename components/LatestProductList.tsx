@@ -1,3 +1,5 @@
+"use client"
+
 import { getLatestProducts } from "@/lib/actions/actions";
 import 'swiper/css';
 import 'swiper/css/pagination';
