@@ -3,11 +3,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const Gallery = ({ productMedia }: { productMedia: string[] }) => {
+const Gallery = ({ productInfo, productMedia }: { productInfo: ProductType, productMedia: string[] }) => {
   const [mainImage, setMainImage] = useState(productMedia[0]);
 
   return (
-    <div className="flex flex-col gap-3 max-w-[500px">
+    <div className="flex flex-col gap-3 max-w-[500px] relative">
+      {productInfo.headline != "" && <span className="absolute left-3 top-3 text-base-bold font-bold text-transparent min-w-fit z-10 gradient-text animate-gradient">{productInfo.headline}</span>}
       <Image
         src={mainImage}
         width={500}

@@ -10,13 +10,17 @@ type ProductType = {
   title: string;
   description: string;
   media: [string];
+  otherMedia: [string];
   category: string;
+  headline: string;
   collections: [string];
   tags: [string];
   price: number;
   cost: number;
   sizes: [string];
   colors: [string];
+  sale: number;
+  stock: number;
   createdAt: string;
   updatedAt: string;
 };

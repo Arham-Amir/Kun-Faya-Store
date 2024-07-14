@@ -13,6 +13,17 @@ export const getProducts = async () => {
   return await products.json()
 }
 
+export const getLatestProducts = async () => {
+  const latestProducts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/latest`);
+  return await latestProducts.json();
+};
+
+export const getTopProductsWithHeadline = async (headline: string) => {
+  const topProducts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/topWithHeadline?headline=${encodeURIComponent(headline)}`);
+  return await topProducts.json();
+};
+
+
 export const getProductDetails = async (productId: string) => {
   const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`)
   return await product.json()

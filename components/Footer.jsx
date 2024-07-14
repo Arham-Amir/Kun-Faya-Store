@@ -10,7 +10,7 @@ export default function Footer() {
 }
 
 function Newsletter() {
-    return <div className="bg-black text-white py-10 px-8 md:px-14 flex gap-8 flex-col md:flex-row justify-around items-center mx-auto">
+    return <div className="bg-black text-white py-10 px-8 md:px-14 flex gap-8 flex-col md:flex-row justify-around items-center mx-auto mt-10">
         <div className="flex flex-col gap-2">
             <p className="text-body-semibold text-center md:text-start">SIGN UP FOR OUR NEWSLETTER</p>
             <p className="text-base-medium text-center md:text-start">Be the first own to know about our offers, product launch and events.</p>
@@ -33,20 +33,20 @@ function PageEnd() {
                 </span>
                 <div className="flex flex-col items-center gap-6 ">
                     <div className="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">About</a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">Collections</a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">Wishlist</a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">Orders</a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">Cart</a>
+                        <a href="/about" className="text-black hover:text-red-1">About</a>
+                        <a href="/collections" className="text-black hover:text-red-1">Collections</a>
+                        <a href="/wishlist" className="text-black hover:text-red-1">Wishlist</a>
+                        <a href="/orders" className="text-black hover:text-red-1">Orders</a>
+                        <a href="/cart" className="text-black hover:text-red-1">Cart</a>
                     </div>
                     <div className="flex items-center gap-8">
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">
+                        <a href="https://www.facebook.com/" target="_blank" className="text-black hover:text-red-1">
                             <Facebook />
                         </a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">
+                        <a href="https://www.instagram.com/" target="_blank" className="text-black hover:text-red-1">
                             <Instagram />
                         </a>
-                        <a href="javascript:void(0)" className="text-black hover:text-red-1">
+                        <a href="https://www.youtube.com/" target="_blank" className="text-black hover:text-red-1">
                             <Youtube />
                         </a>
                     </div>

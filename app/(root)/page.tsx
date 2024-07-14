@@ -1,5 +1,6 @@
 import Collections from "@/components/Collections";
-import ProductList from "@/components/ProductList";
+import HotProductList from "@/components/HotProductList";
+import LatestProductList from "@/components/LatestProductList";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,7 +8,8 @@ export default function Home() {
     <>
       <Image src="/banner.png" alt="banner" width={2000} height={100} className="w-screen h-[95vh] object-fill" />
       <Collections />
-      <ProductList />
+      <LatestProductList />
+      <HotProductList />
     </>
   );
 }

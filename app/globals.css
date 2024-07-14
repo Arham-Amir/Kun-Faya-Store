@@ -7,3 +7,35 @@ body,
 :root {
   height: 100%;
 }
+
+.gradient-text {
+  background: linear-gradient(to right,
+      #a855f7,
+      #ec4899,
+      #eab308,
+      #ec4899,
+      #a855f7,
+      #ec4899,
+      #eab308);
+  background-size: 300% 300%;
+  background-clip: text;
+}
+
+.strikethrough {
+  position: relative;
+}
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0%;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid gray;
+
+  
+  -webkit-transform:rotate(-0deg);
+  -moz-transform:rotate(-0deg);
+  -ms-transform:rotate(-0deg);
+  -o-transform:rotate(-0deg);
+  transform:rotate(-0deg);
+}

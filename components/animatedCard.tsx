@@ -4,17 +4,24 @@ import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from './ui3dCard';
 import Link from "next/link";
+import { Star } from "lucide-react";
 
-export function AnimatedCard({ product }: { product: ProductType }) {
+interface ProductCardProps {
+    product: ProductType;
+    updateSignedInUser?: (updatedUser: UserType) => void;
+}
+export function AnimatedCard({ product, updateSignedInUser }: ProductCardProps) {
     return (
-        <Link
-            href={`/products/${product._id}`}
-        >
-            <CardContainer className="inter-var">
-                <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[20rem] h-auto rounded-xl p-6 border text-black">
+        <CardContainer className="inter-var relative">
+            {product.headline != "" && <p className="text-sm font-bold text-transparent absolute left-2 top-2 p-1 min-w-fit z-10 gradient-text animate-gradient">{product.headline}</p>}
+            {product.sale != 0 && <p className="text-sm absolute right-2 top-2 bg-red-1 text-white rounded-md py-1 px-2 min-w-fit z-10">Save Rs. {Math.floor( product.price * product.sale / 100)}</p>}
+            <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[20rem] h-auto rounded-xl p-6 border text-black">
+                <Link
+                    href={`/products/${product._id}`}
+                >
                     <CardItem
                         translateZ="50"
-                        className="text-xl font-bold text-black dark:text-white"
+                        className="mt-4 text-xl font-bold text-black dark:text-white"
                     >
                         {product.title}
                     </CardItem>
@@ -30,30 +37,48 @@ export function AnimatedCard({ product }: { product: ProductType }) {
                             src={product.media[product.media.length - 1]}
                             height="1000"
                             width="1000"
-                            className="h-60 w-full object-fill rounded-xl group-hover/card:shadow-xl"
+                            className="h-60 w-full object-fill rounded-xl group-hover/card:scale-110 transition-all duration-400 group-hover/card:shadow-xl"
                             alt="thumbnail"
                         />
                     </CardItem>
-                    <div className="flex justify-between items-center mt-20">
+                    {/* <CardItem translateZ="50" className="w-full mt-4">
+                        <div className="space-x-1 flex justify-center">
+                            <Star size={15} fill="orange" className="text-orange-600" />
+                            <Star size={15} fill="orange" className="text-orange-600" />
+                            <Star size={15} fill="orange" className="text-orange-600" />
+                            <Star size={15} fill="orange" className="text-orange-600" />
+                            <Star size={15} fill="white" className="text-orange-600" />
+                        </div>
+                    </CardItem> */}
+                    <div className="flex justify-between items-center mt-10">
                         <CardItem
                             translateZ={20}
-                            as={Link}
-                            href="https://twitter.com/mannupaaji"
-                            target="__blank"
-                            className="px-4 py-2 rounded-xl text-lg font-bold text-black dark:text-white"
+                            as='div'
+                            className="px-4 py-2 rounded-xl text-lg font-bold text-black dark:text-white flex flex-col"
                         >
-                            Rs. {product.price}
+                            {product.sale ? (
+                                <>
+                                    <p>Rs. {Math.floor(product.price - product.price * product.sale / 100)}</p>
+                                    <p className="text-small-medium">
+                                        <span className="strikethrough max-w-fit text-black">{product.price}</span>
+                                        <span className="text-black"> | </span>
+                                        <span className="text-red-1 text-small-bold">{product.sale}% OFF</span>
+                                    </p>
+                                </>
+                            ) : (
+                                <>Rs. {Math.floor(product.price)}</>
+                            )}
                         </CardItem>
                         <CardItem
                             translateZ={20}
                             as="button"
-                            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                            className="p-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
                         >
                             Add To Cart
                         </CardItem>
                     </div>
-                </CardBody>
-            </CardContainer>
-        </Link>
+                </Link>
+            </CardBody>
+        </CardContainer >
     );
 }

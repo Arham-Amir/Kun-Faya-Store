@@ -19,17 +19,26 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
+      {productInfo.sale != 0 && <p className="text-sm bg-red-1 text-white rounded-md py-1 px-2 w-fit z-10">Save Rs. {Math.floor( productInfo.price * productInfo.sale / 100)}</p>}
       <div className="flex justify-between items-center">
-        <p className="text-heading3-bold">{productInfo.title}</p>
+        <p className="text-heading3-bold">{productInfo.title}
+        </p>
         <HeartFavorite product={productInfo} />
       </div>
-
       <div className="flex gap-2">
         <p className="text-base-medium text-grey-2">Category:</p>
-        <p className="text-base-bold">{productInfo.category}</p>
+        <p className="text-base-bold">{productInfo.category}
+        </p>
       </div>
 
       <p className="text-heading3-bold">Rs.{productInfo.price}</p>
+      {productInfo.sale != 0 &&
+        <p className="text-base-bold">
+          <span className="strikethrough max-w-fit text-black">{productInfo.price}</span>
+          <span className="text-black"> | </span>
+          <span className="text-red-1">{productInfo.sale}% OFF</span>
+        </p>
+      }
 
       <div className="flex flex-col gap-2">
         <p className="text-base-medium text-grey-2">Description:</p>
@@ -43,9 +52,8 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.colors.map((color, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${
-                  selectedColor === color && "bg-black text-white"
-                }`}
+                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${selectedColor === color && "bg-black text-white"
+                  }`}
                 onClick={() => setSelectedColor(color)}
               >
                 {color}
@@ -62,9 +70,8 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.sizes.map((size, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${
-                  selectedSize === size && "bg-black text-white"
-                }`}
+                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${selectedSize === size && "bg-black text-white"
+                  }`}
                 onClick={() => setSelectedSize(size)}
               >
                 {size}
@@ -91,6 +98,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
       <button
         className="outline text-base-bold py-3 rounded-lg hover:bg-black hover:text-white"
+        disabled={productInfo.stock < 1}
         onClick={() => {
           cart.addItem({
             item: productInfo,
