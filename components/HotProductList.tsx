@@ -1,9 +1,4 @@
-"use client"
-
 import { getTopProductsWithHeadline } from "@/lib/actions/actions";
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 import ProductsSlider from "./ProductsSlider";
 
 

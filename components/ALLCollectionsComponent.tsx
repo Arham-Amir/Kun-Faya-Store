@@ -1,4 +1,3 @@
-'use client'
 import { getCollections } from "@/lib/actions/actions";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";

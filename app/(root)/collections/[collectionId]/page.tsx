@@ -16,7 +16,7 @@ const CollectionDetails = async ({
       <div className="flex flex-wrap gap-16 justify-center">
         {collectionDetails.products.map((product: ProductType) => (
           <AnimatedCard key={product._id} product={product} />
-          ))}
+        ))}
       </div>
     </div>
   </section>
