@@ -3,17 +3,47 @@
 import useCart from "@/lib/hooks/useCart";
 
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CircleUserRound, Menu, Search, ShoppingCart } from "lucide-react";
+import { CircleUserRound, Menu, Search, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { user } = useUser();
   const cart = useCart();
+  const [active, setActive] = useState(false);
+  const menuRef = useRef(null);
+
+  function toggleActive() {
+    setActive((prev) => !prev);
+  }
+
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [active]);
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setActive(false);
+      }
+    }
+    if (active) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [active]);
 
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const [query, setQuery] = useState("");
@@ -27,106 +57,130 @@ const Navbar = () => {
       <div className="flex gap-5 text-base-bold max-lg:hidden">
         <Link
           href="/"
-          className={`hover:text-red-1 ${pathname === "/" && "text-red-1"
-            }`}
+          className={`hover:text-red-1 ${pathname === "/" && "text-red-1"}`}
         >
           Home
         </Link>
         <Link
           href="/collections"
-          className={`hover:text-red-1 ${pathname === "/collections" && "text-red-1"
-            }`}
+          className={`hover:text-red-1 ${pathname === "/collections" && "text-red-1"}`}
         >
           Collections
         </Link>
         <Link
           href={user ? "/wishlist" : "/sign-in"}
-          className={`hover:text-red-1 ${pathname === "/wishlist" && "text-red-1"
-            }`}
+          className={`hover:text-red-1 ${pathname === "/wishlist" && "text-red-1"}`}
         >
           Wishlist
         </Link>
         <Link
           href={user ? "/orders" : "/sign-in"}
-          className={`hover:text-red-1 ${pathname === "/orders" && "text-red-1"
-            }`}
+          className={`hover:text-red-1 ${pathname === "/orders" && "text-red-1"}`}
         >
           Orders
         </Link>
       </div>
 
       <div className="relative flex gap-3 items-center">
-        <button
+        {/* <button
           disabled={query === ""}
           onClick={() => router.push(`/search/${query}`)}
         >
           <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
-        </button>
+        </button> */}
         <Link
           href="/cart"
-          className="flex items-center gap-3 border rounded-lg px-2 py-1 bg-black hover:bg-white text-white hover:text-black max-md:hidden"
+          className="flex items-center gap-1 lg:gap-3 lg:border lg:rounded-lg lg:px-2 lg:py-1 bg-black hover:bg-white text-white hover:text-black"
         >
           <ShoppingCart />
-          <p className="text-base-bold">Cart ({cart.cartItems.length})</p>
+          <sup className="text-red-1">{cart.cartItems.length}</sup>
+          <p className="text-base-bold max-md:hidden">Cart ({cart.cartItems.length})</p>
         </Link>
 
-        <Menu
-          className="cursor-pointer lg:hidden"
-          onClick={() => setDropdownMenu(!dropdownMenu)}
-        />
-
-        {/* <div className="flex gap-3 border border-grey-2 px-3 py-1 items-center rounded-lg">
-        <input
-          className="outline-none max-sm:max-w-[120px]"
-          placeholder="Search..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button
-          disabled={query === ""}
-          onClick={() => router.push(`/search/${query}`)}
-        >
-          <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
-        </button>
-      </div> */}
-
-        {dropdownMenu && (
-          <div className="absolute top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border bg-white text-base-bold lg:hidden">
-            <Link href="/" className="hover:text-red-1">
-              Home
-            </Link>
-            <Link
-              href={user ? "/wishlist" : "/sign-in"}
-              className="hover:text-red-1"
-            >
-              Wishlist
-            </Link>
-            <Link
-              href={user ? "/orders" : "/sign-in"}
-              className="hover:text-red-1"
-            >
-              Orders
-            </Link>
-            <Link
-              href="/cart"
-              className="flex items-center gap-3 border rounded-lg px-2 py-1 hover:bg-black hover:text-white"
-            >
-              <ShoppingCart />
-              <p className="text-base-bold">Cart ({cart.cartItems.length})</p>
-            </Link>
-          </div>
-        )}
+        {
+          /* <div className="flex gap-3 border border-grey-2 px-3 py-1 items-center rounded-lg">
+          <input
+            className="outline-none max-sm:max-w-[120px]"
+            placeholder="Search..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button
+            disabled={query === ""}
+            onClick={() => router.push(`/search/${query}`)}
+          >
+            <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
+          </button>
+        </div> */
+        }
 
         {user ? (
-          <UserButton afterSignOutUrl="/sign-in" />
+          <div className="">
+            <UserButton afterSignOutUrl="/sign-in" />
+          </div>
         ) : (
           <Link href="/sign-in" className="hover:text-red-1">
             <CircleUserRound />
           </Link>
         )}
+        <HamBurger toggleActive={toggleActive} />
+        <MobileMenu user={user} active={active} toggleActive={toggleActive} menuRef={menuRef} pathname={pathname} />
+        <Overlay active={active} toggleActive={toggleActive} />
       </div>
     </div>
   );
 };
 
 export default Navbar;
+
+
+function HamBurger({ toggleActive }) {
+  return (
+    <button className="cursor-pointer lg:hidden" onClick={toggleActive}><Menu /></button>
+  );
+}
+
+function MobileMenu({ user, active, toggleActive, menuRef, pathname }) {
+  return (
+    <div ref={menuRef} className={`z-10 fixed top-0 right-0 w-[70%] text-black bg-white min-h-screen sm:hidden transition-transform duration-200 ${active ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className="h-screen w-full relative flex justify-center items-center">
+        <button className="cursor-pointer" onClick={toggleActive}>
+          <X className="absolute top-3 left-3 text-black" />
+        </button>
+        <div className="flex flex-col items-center gap-6">
+          <Link href="/" className={`hover:text-red-1 text-heading4-bold ${pathname === "/" && "text-red-1"}`}>
+            Home
+          </Link>
+          <Link
+            href="/collections"
+            className={`hover:text-red-1 text-heading4-bold ${pathname === "/collections" && "text-red-1"}`}
+          >
+            Collections
+          </Link>
+          <Link
+            href={user ? "/wishlist" : "/sign-in"}
+            className={`hover:text-red-1 text-heading4-bold ${pathname === "/wishlist" && "text-red-1"}`}
+          >
+            Wishlist
+          </Link>
+          <Link
+            href={user ? "/orders" : "/sign-in"}
+            className={`hover:text-red-1 text-heading4-bold ${pathname === "/orders" && "text-red-1"}`}
+          >
+            Orders
+          </Link>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Overlay({ active, toggleActive }) {
+  return (
+    <div
+      className={`fixed top-0 left-0 w-full h-full bg-black/50 transition-opacity duration-300 ${active ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      onClick={toggleActive}
+    />
+  );
+}
