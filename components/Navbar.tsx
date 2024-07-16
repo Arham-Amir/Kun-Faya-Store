@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
         <Image src="/logo2.png" alt="logo" width={140} height={100} className="object-fill" />
       </Link>
 
-      <div className="flex gap-5 text-base-bold max-lg:hidden">
+      <div className="flex gap-5 text-base-bold max-md:hidden">
         <Link
           href="/"
           className={`hover:text-red-1 ${pathname === "/" && "text-red-1"}`}
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
           className="flex items-center gap-1 lg:gap-3 lg:border lg:rounded-lg lg:px-2 lg:py-1 bg-black hover:bg-white text-white hover:text-black"
         >
           <ShoppingCart />
-          <sup className="text-red-1">{cart.cartItems.length}</sup>
+          <sup className="text-red-1  block md:hidden">{cart.cartItems.length}</sup>
           <p className="text-base-bold max-md:hidden">Cart ({cart.cartItems.length})</p>
         </Link>
 
@@ -136,7 +136,7 @@ type HamBurgerProps = {
 
 const HamBurger: React.FC<HamBurgerProps> = ({ toggleActive }) => {
   return (
-    <button className="cursor-pointer lg:hidden" onClick={toggleActive}><Menu /></button>
+    <button className="cursor-pointer md:hidden" onClick={toggleActive}><Menu /></button>
   );
 };
 
@@ -150,7 +150,7 @@ type MobileMenuProps = {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ user, active, toggleActive, menuRef, pathname }) => {
   return (
-    <div ref={menuRef} className={`z-10 fixed top-0 right-0 w-[70%] text-black bg-white min-h-screen sm:hidden transition-transform duration-200 ${active ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div ref={menuRef} className={`z-10 fixed top-0 right-0 w-[70%] text-black bg-white min-h-screen transition-transform duration-200 ${active ? 'translate-x-0' : 'translate-x-full'}`}>
       <div className="h-screen w-full relative flex justify-center items-center">
         <button className="cursor-pointer" onClick={toggleActive}>
           <X className="absolute top-3 left-3 text-black" />
