@@ -156,23 +156,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ user, active, toggleActive, men
           <X className="absolute top-3 left-3 text-black" />
         </button>
         <div className="flex flex-col items-center gap-6">
-          <Link href="/" className={`hover:text-red-1 text-heading4-bold ${pathname === "/" && "text-red-1"}`}>
+          <Link onClick={() => { toggleActive() }} href="/" className={`hover:text-red-1 text-heading4-bold ${pathname === "/" && "text-red-1"}`}>
             Home
           </Link>
-          <Link
-            href="/collections"
+          <Link onClick={() => { toggleActive() }} href="/collections"
             className={`hover:text-red-1 text-heading4-bold ${pathname === "/collections" && "text-red-1"}`}
           >
             Collections
           </Link>
-          <Link
-            href={user ? "/wishlist" : "/sign-in"}
+          <Link onClick={() => { toggleActive() }} href={user ? "/wishlist" : "/sign-in"}
             className={`hover:text-red-1 text-heading4-bold ${pathname === "/wishlist" && "text-red-1"}`}
           >
             Wishlist
           </Link>
-          <Link
-            href={user ? "/orders" : "/sign-in"}
+          <Link onClick={() => { toggleActive() }} href={user ? "/orders" : "/sign-in"}
             className={`hover:text-red-1 text-heading4-bold ${pathname === "/orders" && "text-red-1"}`}
           >
             Orders

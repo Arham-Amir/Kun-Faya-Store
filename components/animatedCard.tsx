@@ -5,6 +5,7 @@ import React from "react";
 import { CardBody, CardContainer, CardItem } from './ui3dCard';
 import Link from "next/link";
 import { Star } from "lucide-react";
+import HeartFavorite from "./HeartFavorite";
 
 interface ProductCardProps {
     product: ProductType;
@@ -71,10 +72,11 @@ export function AnimatedCard({ product, updateSignedInUser }: ProductCardProps) 
                         </CardItem>
                         <CardItem
                             translateZ={20}
-                            as="button"
-                            className="p-3 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
+                            as="div"
+                            className="p-1 rounded-xl"
                         >
-                            Add To Cart
+                            <HeartFavorite product={product} />
+                            {/* Add To Cart */}
                         </CardItem>
                     </div>
                 </Link>
