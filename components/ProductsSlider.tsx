@@ -91,7 +91,7 @@ export default ProductsSlider
 //       />
 //       <div>
 //         <p className="text-base-bold">{product.title}</p>
-//         <p className="text-small-medium text-grey-2">{product.category}</p>
+//         <p className="text-small-medium text-muted-foreground">{product.category}</p>
 //       </div>
 //       <div className="flex justify-between items-center">
 //         <p className="text-body-bold">Rs.{product.price}</p>

@@ -53,7 +53,7 @@ const Cart = () => {
         ) : (
           <div>
             {cart.cartItems.map((cartItem) => (
-              <div className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-grey-1 px-4 py-3 items-center max-sm:items-start justify-between">
+              <div className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-card px-4 py-3 items-center max-sm:items-start justify-between">
                 <div className="flex items-center">
                   <Image
                     src={cartItem.item.media[0]}
@@ -70,24 +70,24 @@ const Cart = () => {
                     {cartItem.size && (
                       <p className="text-small-medium">{cartItem.size}</p>
                     )}
-                    <p className="text-small-medium">${cartItem.item.price}</p>
+                    <p className="text-small-medium">Rs. {cartItem.item.price}</p>
                   </div>
                 </div>
 
                 <div className="flex gap-4 items-center">
                   <MinusCircle
-                    className="hover:text-red-1 cursor-pointer"
+                    className="hover:text-primary cursor-pointer"
                     onClick={() => cart.decreaseQuantity(cartItem.item._id)}
                   />
                   <p className="text-body-bold">{cartItem.quantity}</p>
                   <PlusCircle
-                    className="hover:text-red-1 cursor-pointer"
+                    className="hover:text-primary cursor-pointer"
                     onClick={() => cart.increaseQuantity(cartItem.item._id)}
                   />
                 </div>
 
                 <Trash
-                  className="hover:text-red-1 cursor-pointer"
+                  className="hover:text-primary cursor-pointer"
                   onClick={() => cart.removeItem(cartItem.item._id)}
                 />
               </div>
@@ -96,7 +96,7 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-grey-1 rounded-lg px-4 py-5">
+      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-card rounded-lg px-4 py-5">
         <p className="text-heading4-bold pb-4">
           Summary{" "}
           <span>{`(${cart.cartItems.length} ${
@@ -105,10 +105,10 @@ const Cart = () => {
         </p>
         <div className="flex justify-between text-body-semibold">
           <span>Total Amount</span>
-          <span>Rs.{totalRounded}</span>
+          <span>Rs. {totalRounded}</span>
         </div>
         <button
-          className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white"
+          className="border rounded-lg text-body-bold text-foreground bg-background py-3 w-full hover:bg-primary "
           onClick={handleCheckout}
         >
           Proceed to Checkout

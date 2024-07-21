@@ -8,8 +8,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { ModeToggle } from "./ui/toggleModeButton";
 
 const Navbar: React.FC = () => {
+
   const pathname = usePathname();
   const router = useRouter();
   const { user } = useUser();
@@ -46,33 +48,33 @@ const Navbar: React.FC = () => {
   }, [active]);
 
   return (
-    <div className="h-[55px] w-full fixed top-0 z-20 py-2 px-10 flex gap-2 justify-between items-center bg-black text-white max-sm:px-2">
+    <div className="h-[55px] w-full fixed top-0 z-20 py-2 px-10 flex gap-2 justify-between items-center bg-black shadow-md text-white max-sm:px-2">
       <Link href="/">
-        <Image src="/logo2.png" alt="logo" width={140} height={100} className="object-fill" />
+        <Image src="/logo-dark.png" alt="logo" width={140} height={100} className="object-fill" />
       </Link>
 
       <div className="flex gap-5 text-base-bold max-md:hidden">
         <Link
           href="/"
-          className={`hover:text-red-1 ${pathname === "/" && "text-red-1"}`}
+          className={`hover:text-primary ${pathname === "/" && "text-primary"}`}
         >
           Home
         </Link>
         <Link
           href="/collections"
-          className={`hover:text-red-1 ${pathname === "/collections" && "text-red-1"}`}
+          className={`hover:text-primary ${pathname === "/collections" && "text-primary"}`}
         >
           Collections
         </Link>
         <Link
           href={user ? "/wishlist" : "/sign-in"}
-          className={`hover:text-red-1 ${pathname === "/wishlist" && "text-red-1"}`}
+          className={`hover:text-primary ${pathname === "/wishlist" && "text-primary"}`}
         >
           Wishlist
         </Link>
         <Link
           href={user ? "/orders" : "/sign-in"}
-          className={`hover:text-red-1 ${pathname === "/orders" && "text-red-1"}`}
+          className={`hover:text-primary ${pathname === "/orders" && "text-primary"}`}
         >
           Orders
         </Link>
@@ -83,14 +85,14 @@ const Navbar: React.FC = () => {
           disabled={query === ""}
           onClick={() => router.push(`/search/${query}`)}
         >
-          <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
+          <Search className="cursor-pointer h-4 w-4 hover:text-primary" />
         </button> */}
         <Link
           href="/cart"
           className="flex items-center gap-1 lg:gap-3 lg:border lg:rounded-lg lg:px-2 lg:py-1 bg-black hover:bg-white text-white hover:text-black"
         >
           <ShoppingCart />
-          <sup className="text-red-1  block md:hidden">{cart.cartItems.length}</sup>
+          <sup className="text-primary  block md:hidden">{cart.cartItems.length}</sup>
           <p className="text-base-bold max-md:hidden">Cart ({cart.cartItems.length})</p>
         </Link>
 
@@ -106,7 +108,7 @@ const Navbar: React.FC = () => {
             disabled={query === ""}
             onClick={() => router.push(`/search/${query}`)}
           >
-            <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
+            <Search className="cursor-pointer h-4 w-4 hover:text-primary" />
           </button>
         </div> */
         }
@@ -116,7 +118,7 @@ const Navbar: React.FC = () => {
             <UserButton afterSignOutUrl="/sign-in" />
           </div>
         ) : (
-          <Link href="/sign-in" className="hover:text-red-1">
+          <Link href="/sign-in" className="hover:text-primary">
             <CircleUserRound />
           </Link>
         )}
@@ -156,21 +158,21 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ user, active, toggleActive, men
           <X className="absolute top-3 left-3 text-black" />
         </button>
         <div className="flex flex-col items-center gap-6">
-          <Link onClick={() => { toggleActive() }} href="/" className={`hover:text-red-1 text-heading4-bold ${pathname === "/" && "text-red-1"}`}>
+          <Link onClick={() => { toggleActive() }} href="/" className={`hover:text-primary text-heading4-bold ${pathname === "/" && "text-primary"}`}>
             Home
           </Link>
           <Link onClick={() => { toggleActive() }} href="/collections"
-            className={`hover:text-red-1 text-heading4-bold ${pathname === "/collections" && "text-red-1"}`}
+            className={`hover:text-primary text-heading4-bold ${pathname === "/collections" && "text-primary"}`}
           >
             Collections
           </Link>
           <Link onClick={() => { toggleActive() }} href={user ? "/wishlist" : "/sign-in"}
-            className={`hover:text-red-1 text-heading4-bold ${pathname === "/wishlist" && "text-red-1"}`}
+            className={`hover:text-primary text-heading4-bold ${pathname === "/wishlist" && "text-primary"}`}
           >
             Wishlist
           </Link>
           <Link onClick={() => { toggleActive() }} href={user ? "/orders" : "/sign-in"}
-            className={`hover:text-red-1 text-heading4-bold ${pathname === "/orders" && "text-red-1"}`}
+            className={`hover:text-primary text-heading4-bold ${pathname === "/orders" && "text-primary"}`}
           >
             Orders
           </Link>

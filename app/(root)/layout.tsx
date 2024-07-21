@@ -6,6 +6,8 @@ import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
+import { ThemeProvider } from "@/components/themeProvider";
+import { ModeToggle } from "@/components/ui/toggleModeButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,15 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white`}>
-        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-          <ToasterProvider />
-          <Navbar />
-          <main className="mt-[55px]">
-            {children}
-          </main>
-          <Footer />
-        </ClerkProvider>
+      <body className={`${inter.className}`}>
+        <ThemeProvider attribute="class" defaultTheme="system">
+          <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+            <ToasterProvider />
+            <Navbar />
+            <main className="mt-[55px]">
+              {children}
+            </main>
+            <Footer />
+          </ClerkProvider>
+          <ModeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

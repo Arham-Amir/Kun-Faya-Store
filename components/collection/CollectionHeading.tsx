@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Bannerdiv from "@/lib/ui/bannerdiv";
-import AnimatedButton from "@/lib/ui/animatedButton";
+import AnimatedButton from "@/components/animatedButton";
+import Bannerdiv from "../bannerdiv";
 
 export function CollectionHeading({ title, description }: { title: string, description: string }) {
     return (
@@ -16,7 +16,7 @@ export function CollectionHeading({ title, description }: { title: string, descr
                     </p>
                 }
             </div>
-            <AnimatedButton text="View All"/>
+            <AnimatedButton to="products" text="View All"/>
         </Bannerdiv>
     );
 }
