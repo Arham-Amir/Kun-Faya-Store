@@ -9,12 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       backgroundColor: {
-        "red-1": "#FF0000",
+        // "red-1": "#FF0000",
+        "red-1": "#EF7422",
         "grey-1": "#F7F7F7",
         "grey-2": "#8A8A8A",
       },
       colors: {
-        "red-1": "#FF0000",
+        // "red-1": "#FF0000",
+        "red-1": "#EF7422",
         "grey-1": "#F7F7F7",
         "grey-2": "#8A8A8A",
       },
@@ -27,20 +29,27 @@ const config: Config = {
           },
         ],
         "heading2-bold": [
-          "30px",
+          "40px",
           {
             lineHeight: "100%",
             fontWeight: "700",
           },
         ],
         "heading3-bold": [
-          "24px",
+          "30px",
           {
             lineHeight: "100%",
             fontWeight: "700",
           },
         ],
         "heading4-bold": [
+          "24px",
+          {
+            lineHeight: "100%",
+            fontWeight: "700",
+          },
+        ],
+        "heading5-bold": [
           "20px",
           {
             lineHeight: "100%",
