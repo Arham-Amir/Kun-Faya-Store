@@ -11,7 +11,7 @@ const Hero = () => {
                     <span className='text-orange-600'> Store</span>
                 </h1>
             </div>
-            <AnimatedButton text="Shop Now" />
+            <AnimatedButton to="collections" text="Shop Now" />
         </Bannerdiv >
     )
 }
