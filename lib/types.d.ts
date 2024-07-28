@@ -38,7 +38,8 @@ type OrderType = {
   customerClerkId: string;
   products: [OrderItemType]
   shippingRate: string;
-  totalAmount: number
+  totalAmount: number;
+  completed: boolean;
 }
 
 type OrderItemType = {
