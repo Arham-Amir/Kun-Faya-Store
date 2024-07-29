@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
 import { ThemeProvider } from "@/components/themeProvider";
 import { ModeToggle } from "@/components/ui/toggleModeButton";
+import Whatsapp from "@/components/ui/Whatsapp";
+import Testimonials from "@/components/Testimonials";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,9 +33,11 @@ export default function RootLayout({
             <main className="mt-[55px]">
               {children}
             </main>
+            <Testimonials />
             <Footer />
           </ClerkProvider>
           <ModeToggle />
+          <Whatsapp />
         </ThemeProvider>
       </body>
     </html>

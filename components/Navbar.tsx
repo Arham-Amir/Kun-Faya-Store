@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
         </button> */}
         <Link
           href="/cart"
-          className="flex items-center gap-1 lg:gap-3 lg:border lg:rounded-lg lg:px-2 lg:py-1 bg-black hover:bg-white text-white hover:text-black"
+          className="max-md:hover:scale-105 transition-all duration-200 flex items-center gap-1 md:gap-3 md:border md:rounded-lg md:px-2 md:py-1 bg-black md:hover:bg-white text-white md:hover:text-black"
         >
           <ShoppingCart />
           <sup className="text-primary  block md:hidden">{cart.cartItems.length}</sup>

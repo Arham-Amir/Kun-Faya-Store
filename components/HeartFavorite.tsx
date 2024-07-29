@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { Heart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface HeartFavoriteProps {
   product: ProductType;
@@ -49,6 +50,7 @@ const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
         const updatedUser = await res.json();
         setIsLiked(updatedUser.wishlist.includes(product._id));
         updateSignedInUser && updateSignedInUser(updatedUser);
+        toast.success("Item added to wishlist")
       }
     } catch (err) {
       console.log("[wishlist_POST]", err);
@@ -57,7 +59,7 @@ const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
 
   return (
     <button onClick={handleLike}>
-      <Heart fill={`${isLiked ? "red" : "white"}`} className="hover:text-primary"/>
+      <Heart className={`hover:text-red-500 ${isLiked ? "fill-red-500 text-red-500" : "text-white fill-white"}`} />
     </button>
   );
 };

@@ -20,7 +20,7 @@ function Newsletter() {
         </div>
         <div className="flex items-center gap-1 flex-wrap justify-center">
             <input type="text" className="bg-input px-2 py-3 w-[300px] rounded-md placeholder:text-muted-foreground" placeholder="Enter Your Email" />
-            <button className="text-white btn bg-primary">Subscribe</button>
+            <button className="text-white btn bg-primary hover:bg-primary/80">Subscribe</button>
         </div>
     </div>
 }

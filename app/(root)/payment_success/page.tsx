@@ -14,10 +14,10 @@ const SuccessfulPayment = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center gap-5">
       <p className="text-heading4-bold text-primary">Order Placed Successfully</p>
-      <p>Thank you for your shopping. You will receive a call from one of our customer care representatives to confirm your order.</p>
+      <p className="text-center">Thank you for your shopping. You will receive a call from one of our customer care representatives to confirm your order.</p>
       <Link
         href="/"
-        className="p-4 border text-base-bold hover:bg-black hover:text-white"
+        className="p-4 border text-base-bold bg-black hover:bg-primary text-white"
       >
         CONTINUE TO SHOPPING
       </Link>

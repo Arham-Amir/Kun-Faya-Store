@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import HeartFavorite from "./HeartFavorite";
-import { MinusCircle, PlusCircle } from "lucide-react";
+import { AlertTriangle, MinusCircle, PlusCircle } from "lucide-react";
 
 import useCart from "@/lib/hooks/useCart";
 
@@ -19,7 +19,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
-      {productInfo.sale != 0 && <p className="text-sm bg-primary text-primary-foreground rounded-md py-1 px-2 w-fit z-10">Save Rs. {Math.floor( productInfo.price * productInfo.sale / 100)}</p>}
+      {productInfo.sale != 0 && <p className="text-sm bg-primary text-primary-foreground rounded-md py-1 px-2 w-fit z-10">Save Rs. {Math.floor(productInfo.price * productInfo.sale / 100)}</p>}
       <div className="flex justify-between items-center">
         <p className="text-heading3-bold">{productInfo.title}
         </p>
@@ -95,9 +95,9 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
           />
         </div>
       </div>
-
+      {productInfo.stock < 1 && <p className="text-amber-600 flex items-center"><AlertTriangle className="inline mr-1" /> Out of Stock</p>}
       <button
-        className="outline text-base-bold py-3 rounded-lg hover:bg-primary hover:text-foreground"
+        className={`outline text-base-bold py-3 rounded-lg ${productInfo.stock > 0 && "hover:bg-primary hover:text-foreground"}`}
         disabled={productInfo.stock < 1}
         onClick={() => {
           cart.addItem({

@@ -15,7 +15,7 @@ export function AnimatedCard({ product, updateSignedInUser }: ProductCardProps) 
     return (
         <CardContainer className="inter-var relative">
             {product.headline != "" && <p className="text-sm font-bold text-transparent absolute left-2 top-2 p-1 min-w-fit z-10 gradient-text animate-gradient">{product.headline}</p>}
-            {product.sale != 0 && <p className="text-sm absolute right-2 top-2 bg-primary text-primary-foreground rounded-md py-1 px-2 min-w-fit z-10">Save Rs. {Math.floor( product.price * product.sale / 100)}</p>}
+            {product.sale != 0 && <p className="text-xs absolute right-2 top-2 bg-primary text-primary-foreground rounded-md py-1 px-2 min-w-fit z-10">Save Rs. {Math.floor( product.price * product.sale / 100)}</p>}
             <CardBody className="bg-card relative group/card  hover:shadow-sm hover:shadow-primary dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[20rem] h-auto rounded-md p-6 border">
                 <Link
                     href={`/products/${product._id}`}

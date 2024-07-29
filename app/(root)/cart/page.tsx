@@ -120,7 +120,7 @@ const RightSummaryBox: React.FC = () => {
       </div>
       {proceed ? <ShoppingCartForm cartItems={cart.cartItems} totalAmount={totalRounded} /> : (
         <button
-          className="border rounded-lg text-body-bold text-foreground bg-background py-3 w-full hover:bg-primary"
+          className="border rounded-lg text-body-bold text-white py-3 w-full bg-primary hover:bg-primary/80"
           onClick={handleProceed}
         >
           Proceed to Checkout
@@ -155,6 +155,7 @@ const ShoppingCartForm: React.FC<{ cartItems: any[], totalAmount: number }> = ({
       if (!user) {
         router.push("sign-in");
       }
+      const toastid = toast.loading("Order processing...");
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
         method: "POST",
         headers: {
@@ -181,6 +182,7 @@ const ShoppingCartForm: React.FC<{ cartItems: any[], totalAmount: number }> = ({
       });
 
       const result = await res.json();
+      toast.dismiss(toastid);
       if (res.ok) {
         toast.success("Order placed successfully!");
         router.push("/payment_success")
@@ -234,7 +236,7 @@ const ShoppingCartForm: React.FC<{ cartItems: any[], totalAmount: number }> = ({
           <label className="text-foreground">Postal Code</label>
           <input className="p-2 bg-background" type="text" {...register('postalCode')} />
         </div>
-        <button className="btn bg-secondary text-secondary-foreground border-2 border-solid hover:bg-primary" type="submit">Confirm Order</button>
+        <button className="btn bg-primary hover:bg-primary/80 text-white border-2 border-white" type="submit">Confirm Order</button>
       </form>
     </div>
   );
