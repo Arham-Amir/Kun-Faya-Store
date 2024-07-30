@@ -8,7 +8,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import SwiperCore from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
 import { HandCoins, Headset, PhoneCall, RotateCcw, Truck } from 'lucide-react';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
