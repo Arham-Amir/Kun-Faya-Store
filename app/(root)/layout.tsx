@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/themeProvider";
 import { ModeToggle } from "@/components/ui/toggleModeButton";
 import Whatsapp from "@/components/ui/Whatsapp";
 import Testimonials from "@/components/Testimonials";
+import Headline from "@/components/Headline";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="system">
           <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
             <ToasterProvider />
+            <Headline />
             <Navbar />
-            <main className="mt-[55px]">
+            <main className="">
               {children}
             </main>
             <Testimonials />

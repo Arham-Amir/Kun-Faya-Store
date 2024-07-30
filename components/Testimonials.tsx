@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import SwiperCore from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { HandCoins, Headset, PhoneCall, RotateCcw, Truck } from 'lucide-react';
+import { Separator } from '@radix-ui/react-dropdown-menu';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -98,8 +99,8 @@ const Testimonials = () => {
                     {infoCards.map((card, index) => (
                         <SwiperSlide key={index} className="mb-10 group bg-card border border-solid rounded-xl p-6 transition-all duration-500 hover:border-primary !flex flex-col !justify-center items-center gap-3">
                             <p className='text-center'><card.icon /></p>
-                            <div className=" border-gray-200 text-center">
-                                <h5 className="font-medium mb-1">{card.title}</h5>
+                            <div className=" border-muted-foreground border-b px-3 text-center">
+                                <h5 className="font-semibold mb-1">{card.title}</h5>
                             </div>
                             <div className='text-center'>
                                 <p className="text-base">

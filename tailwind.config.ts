@@ -117,6 +117,7 @@ const config = {
         // "red-1": "#FF0000",
         "red-1": "#EF7422",
         solid: "hsl(var(--solid))",
+        light: "hsl(var(--light))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

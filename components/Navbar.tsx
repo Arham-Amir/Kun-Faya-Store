@@ -8,7 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ModeToggle } from "./ui/toggleModeButton";
 
 const Navbar: React.FC = () => {
 
@@ -48,7 +47,7 @@ const Navbar: React.FC = () => {
   }, [active]);
 
   return (
-    <div className="h-[55px] w-full fixed top-0 z-20 py-2 px-10 flex gap-2 justify-between items-center bg-black shadow-md text-white max-sm:px-2">
+    <div className="h-[55px] w-full sticky top-0 z-20 py-2 px-10 flex gap-2 justify-between items-center bg-black shadow-md text-white max-sm:px-2">
       <Link href="/">
         <Image src="/logo-dark.png" alt="logo" width={140} height={100} className="object-fill" />
       </Link>
@@ -152,7 +151,7 @@ type MobileMenuProps = {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ user, active, toggleActive, menuRef, pathname }) => {
   return (
-    <div ref={menuRef} className={`z-10 fixed top-0 right-0 w-[70%] text-black bg-white min-h-screen transition-transform duration-200 ${active ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div ref={menuRef} className={`z-10 fixed top-0 right-0 w-[70%] text-white bg-black min-h-screen transition-transform duration-200 ${active ? 'translate-x-0' : 'translate-x-full'}`}>
       <div className="h-screen w-full relative flex justify-center items-center">
         <button className="cursor-pointer" onClick={toggleActive}>
           <X className="absolute top-3 left-3 text-black" />

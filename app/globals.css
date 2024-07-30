@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --solid: 0 0% 0%;
+    --light: 0 0% 100%;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 10.1%;
     --card: 60 4.8% 95.9%;
@@ -33,6 +34,7 @@
   }
 
   .dark {
+    --light: 0 0% 0%;
     --solid: 0 0% 100%;
     --background: 20 14.3% 10.1%;
     --foreground: 60 9.1% 97.8%;
@@ -113,6 +115,21 @@
   .swiper-wrapper{
     @apply !flex;
     align-items: center !important;
+  }
+
+  .headline p {
+    white-space: nowrap;
+    animation: scrollLeft 20s linear infinite;
+  }
+  
+  @keyframes scrollLeft {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
   }
 
 }
