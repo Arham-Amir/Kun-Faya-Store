@@ -1,10 +1,10 @@
 "use client";
 
 import useCart from "@/lib/hooks/useCart";
-import { useUser } from "@clerk/nextjs";
+import { redirectToSignIn, useUser } from "@clerk/nextjs";
 import { AlertCircleIcon, MinusCircle, PlusCircle, Star, Trash, Truck } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -76,6 +76,9 @@ const Cart = () => {
 export default Cart;
 
 const RightSummaryBox: React.FC = () => {
+  const { user } = useUser();
+  const pathname = usePathname();
+
   const [proceed, setProceed] = useState(false);
   const cart = useCart();
   const deliveryCharges = 180;
@@ -88,6 +91,10 @@ const RightSummaryBox: React.FC = () => {
   const totalRounded = parseFloat(total.toFixed(2));
 
   const handleProceed = () => {
+    if (!user) {
+      redirectToSignIn({ returnBackUrl: pathname });
+      return;
+    }
     if (cart.cartItems.length === 0) {
       toast("Please add items first.");
     } else {
@@ -152,9 +159,6 @@ const ShoppingCartForm: React.FC<{ cartItems: any[], totalAmount: number }> = ({
 
   const onSubmit = async (data: FormData) => {
     try {
-      if (!user) {
-        router.push("sign-in");
-      }
       const toastid = toast.loading("Order processing...");
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
         method: "POST",

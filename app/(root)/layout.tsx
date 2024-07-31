@@ -28,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-
         <Script
         id="gtm"
         strategy="afterInteractive" 
