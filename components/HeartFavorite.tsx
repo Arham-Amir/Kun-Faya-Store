@@ -22,11 +22,17 @@ const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
     try {
       setLoading(true);
       const res = await fetch("/api/users");
-      const data = await res.json();
-      setIsLiked(data.wishlist.includes(product._id));
-      setLoading(false);
+      if (res.ok) {
+        const data = await res.json();
+        setIsLiked(data.wishlist.includes(product._id));
+      } else {
+        throw new Error("Failed to fetch user data");
+      }
     } catch (err) {
       console.log("[users_GET]", err);
+      toast.error("Failed to fetch user data");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,28 +44,42 @@ const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
 
   const handleLike = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    if (loading) return; // Prevent multiple clicks while loading
+
     try {
       if (!user) {
         router.push("/sign-in");
         return;
-      } else {
-        const res = await fetch("/api/users/wishlist", {
-          method: "POST",
-          body: JSON.stringify({ productId: product._id }),
-        });
+      }
+
+      setLoading(true);
+      const res = await fetch("/api/users/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId: product._id }),
+      });
+
+      if (res.ok) {
         const updatedUser = await res.json();
         setIsLiked(updatedUser.wishlist.includes(product._id));
         updateSignedInUser && updateSignedInUser(updatedUser);
-        toast.success("Item added to wishlist")
+        toast.success("Wishlist updated");
+      } else {
+        throw new Error("Failed to update wishlist");
       }
     } catch (err) {
       console.log("[wishlist_POST]", err);
+      toast.error("Failed to update wishlist");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleLike}>
-      <Heart className={`hover:text-red-500 ${isLiked ? "fill-red-500 text-red-500" : "text-white fill-white"}`} />
+    <button onClick={handleLike} disabled={loading}>
+      <Heart className={`hover:text-red-500 ${isLiked ? "fill-red-500 text-red-500" : "fill-white text-gray-400"}`} />
     </button>
   );
 };

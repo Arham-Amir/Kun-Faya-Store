@@ -29,18 +29,28 @@ const ProductsSlider = ({ products }: { products: ProductType[] }) => {
                 }}
                 modules={[Navigation, Pagination]}
                 breakpoints={{
-                    800: {
+                    600: {
                         slidesPerView: 2,
                         spaceBetween: 20,
                         loop: products.length > 2 ? true : false,
                     },
-                    1200: {
+                    800: {
                         slidesPerView: 3,
+                        spaceBetween: 20,
+                        loop: products.length > 2 ? true : false,
+                    },
+                    1050: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                        loop: products.length > 3 ? true : false,
+                    },
+                    1340: {
+                        slidesPerView: 5,
                         spaceBetween: 30,
                         loop: products.length > 3 ? true : false,
                     },
                     1400: {
-                        slidesPerView: 4,
+                        slidesPerView: 6,
                         spaceBetween: 30,
                         loop: products.length > 4 ? true : false,
                     }
@@ -51,6 +61,7 @@ const ProductsSlider = ({ products }: { products: ProductType[] }) => {
                     <SwiperSlide key={product._id} style={{ width: 'auto', marginBottom: 'auto', padding: '10px 0' }}>
                         <AnimatedCard product={product} />
                     </SwiperSlide>
+
                 ))}
                 <div className='button-next-slide absolute top-1/2 right-1 transform -translate-y-1/2 z-10 cursor-pointer bg-black p-2 rounded-full'>
                     <ChevronsRight className='text-2xl text-white' />
