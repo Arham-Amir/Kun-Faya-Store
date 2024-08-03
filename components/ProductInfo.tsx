@@ -19,7 +19,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
-      {productInfo.sale != 0 && <p className="text-sm bg-primary text-primary-foreground rounded-md py-1 px-2 w-fit z-10">Save Rs. {Math.floor(productInfo.price * productInfo.sale / 100)}</p>}
+      {productInfo.sale != 0 && <p className="text-sm bg-primary text-primary-foreground rounded-md py-1 px-2 w-fit z-10">Save Rs. {Math.floor(((productInfo.price * 100) / (100 - productInfo.sale)) - productInfo.price)}</p>}
       <div className="flex justify-between items-center">
         <p className="text-heading3-bold">{productInfo.title}
         </p>
@@ -34,7 +34,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
       <p className="text-heading3-bold">Rs.{productInfo.price}</p>
       {productInfo.sale != 0 &&
         <p className="text-base-bold">
-          <span className="strikethrough max-w-fit text-foreground">{productInfo.price}</span>
+          <span className="strikethrough max-w-fit text-foreground">{Math.floor((productInfo.price * 100) / (100 - productInfo.sale))}</span>
           <span className="text-foreground"> | </span>
           <span className="text-primary">{productInfo.sale}% OFF</span>
         </p>

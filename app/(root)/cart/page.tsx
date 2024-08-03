@@ -1,7 +1,7 @@
 "use client";
 
 import useCart from "@/lib/hooks/useCart";
-import { redirectToSignIn, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { AlertCircleIcon, MinusCircle, PlusCircle, Star, Trash, Truck } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -78,6 +78,7 @@ export default Cart;
 const RightSummaryBox: React.FC = () => {
   const { user } = useUser();
   const pathname = usePathname();
+  const router = useRouter()
 
   const [proceed, setProceed] = useState(false);
   const cart = useCart();
@@ -92,7 +93,9 @@ const RightSummaryBox: React.FC = () => {
 
   const handleProceed = () => {
     if (!user) {
-      redirectToSignIn({ returnBackUrl: pathname });
+      toast("Login First.");
+      const redirectUrl = encodeURIComponent(pathname);
+      router.push(`/sign-in?redirect_url=${redirectUrl}`);
       return;
     }
     if (cart.cartItems.length === 0) {

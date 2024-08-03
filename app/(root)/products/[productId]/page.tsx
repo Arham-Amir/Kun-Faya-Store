@@ -8,19 +8,20 @@ const ProductDetails = async ({ params }: { params: { productId: string } }) => 
   const productDetails: ProductType = await getProductDetails(params.productId)
   const relatedProducts = await getRelatedProducts(params.productId)
 
+  let mediaMerged: string[] = productDetails.media
+  if (productDetails.otherMedia && productDetails.otherMedia.length) {
+    mediaMerged = [...mediaMerged, ...productDetails.otherMedia]
+  }
+
   return (
     <>
       <div className="flex justify-center items-start gap-16 py-10 px-5 max-md:flex-col max-md:items-center">
-        <Gallery productInfo={productDetails} productMedia={productDetails.media} />
+        <Gallery productInfo={productDetails} productMedia={mediaMerged} />
         <ProductInfo productInfo={productDetails} />
       </div>
       <div className="flex flex-col items-center px-10 py-5 max-md:px-3">
-        {productDetails.otherMedia && productDetails.otherMedia.length ?
-          productDetails.otherMedia.map((media, i) => {
-            return <MediaComponent key={i} media={media} />
-          })
-          :
-          productDetails.media.map((media, i) => {
+        {
+          mediaMerged.map((media, i) => {
             return <MediaComponent key={i} media={media} />
           })
         }
@@ -54,6 +55,6 @@ function MediaComponent({ media }: { media: string }) {
       <source src={media} type="video/mp4" />
     </video>
   ) : (
-    <Image src={media} alt="Media content" width={800} height={600} className="max-w-full h-auto" />
+    <Image src={media} alt="Media content" width={800} height={600} className="max-w-full h-auto shadow-xl border" />
   );
 }
