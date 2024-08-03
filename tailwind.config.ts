@@ -179,7 +179,7 @@ const config = {
     },
   },
 
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide"), require('daisyui'),],
+  plugins: [require("tailwindcss-animate"), require('daisyui'),],
 } satisfies Config
 
 export default config

@@ -112,7 +112,7 @@
     transform: rotate(-0deg);
   }
 
-  .swiper-wrapper{
+  .swiper-wrapper {
     @apply !flex;
     align-items: center !important;
   }
@@ -121,7 +121,7 @@
     white-space: nowrap;
     animation: scrollLeft 20s linear infinite;
   }
-  
+
   @keyframes scrollLeft {
     from {
       transform: translateX(100%);
@@ -130,6 +130,26 @@
     to {
       transform: translateX(-100%);
     }
+  }
+
+  .custom-scrollbar {
+    overflow-y: scroll;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-white;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-card rounded-md;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #bdc3c7;
   }
 
 }
