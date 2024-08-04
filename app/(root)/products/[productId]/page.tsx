@@ -1,6 +1,7 @@
 import { AnimatedCard } from "@/components/animatedCard"
 import Gallery from "@/components/Gallery"
 import ProductInfo from "@/components/ProductInfo"
+import ProductCards from "@/components/productsGrid"
 import { getProductDetails, getRelatedProducts } from "@/lib/actions/actions"
 import Image from "next/image"
 
@@ -27,13 +28,9 @@ const ProductDetails = async ({ params }: { params: { productId: string } }) => 
         }
       </div>
       {relatedProducts.length != 0 &&
-        <div className="flex flex-col items-center px-10 py-5 max-md:px-3">
+        <div className="flex gap-8 flex-col items-center px-10 py-5 max-md:px-3">
           <p className="text-heading3-bold">Related Products</p>
-          <div className="flex justify-center items-center flex-wrap gap-16 mx-auto mt-8">
-            {relatedProducts?.map((product: ProductType) => (
-              <AnimatedCard key={product._id} product={product} />
-            ))}
-          </div>
+          <ProductCards products={relatedProducts} />
         </div>
       }
     </>

@@ -78,7 +78,7 @@ const Testimonials = () => {
     }, []);
 
     return (
-        <section className="py-24 px-5">
+        <section className="py-14 px-5">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="mb-16 text-center">
                     <h2 className="text-4xl font-bold">What our customers get!</h2>

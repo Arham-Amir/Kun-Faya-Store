@@ -13,9 +13,15 @@ export const getProducts = async () => {
   return await products.json()
 }
 
-export const getLatestProducts = async () => {
-  const latestProducts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/latest`);
-  return await latestProducts.json();
+export const getLatestProducts = async (id: string = "") => {
+  if (id == "") {
+    const latestProducts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/latest`);
+    return await latestProducts.json();
+  }
+  else{
+    const latestProducts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/latest?collectionId=${encodeURIComponent(id)}`);
+    return await latestProducts.json();
+  }
 };
 
 export const getTopProductsWithHeadline = async (headline: string) => {
