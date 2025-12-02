@@ -25,7 +25,7 @@ const AnnouncementBar = () => {
   }, []);
 
   return (
-    <div className="bg-primary text-primary-foreground py-2 text-center text-sm font-medium relative overflow-hidden h-9">
+    <div className="bg-card text-card-foreground py-2 text-center text-sm font-medium relative overflow-hidden h-9 border-b border-gray-800">
       {messages.map((msg, i) => (
         <div
           key={i}
@@ -196,7 +196,7 @@ type MobileMenuProps = {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ user, active, toggleActive, menuRef, pathname }) => {
   return (
-    <div ref={menuRef} className={`z-50 fixed top-0 right-0 w-[80%] max-w-[300px] text-white bg-black/95 backdrop-blur-xl min-h-screen transition-transform duration-300 ease-in-out shadow-2xl ${active ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div ref={menuRef} className={`z-50 fixed top-0 right-0 w-[80%] max-w-[300px] text-white bg-black/95 backdrop-blur-xl min-h-screen transition-transform duration-300 ease-in-out shadow-2xl ${active ? 'translate-x-0' : 'translate-x-full invisible'}`}>
       <div className="h-full w-full relative flex flex-col p-8">
         <button className="cursor-pointer self-end mb-8 hover:text-primary transition-colors" onClick={toggleActive}>
           <X className="w-8 h-8" />
