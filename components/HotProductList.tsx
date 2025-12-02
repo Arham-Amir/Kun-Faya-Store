@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { getTopProductsWithHeadline } from '@/lib/actions/actions'; // Adjust the path as needed
-import ProductsSlider from './ProductsSlider';
+import { getTopProductsWithHeadline } from '@/lib/actions/actions';
 import LoaderComp from './LoaderComp';
+import ProductCards from './productsGrid';
 
 const HotProductList = () => {
     const [products, setProducts] = useState<ProductType[]>([]);
@@ -12,7 +12,7 @@ const HotProductList = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const topProducts = await getTopProductsWithHeadline("Hot Selling");
+                const topProducts = await getTopProductsWithHeadline();
                 setProducts(topProducts);
             } catch (error) {
                 console.error('Failed to fetch products:', error);
@@ -25,18 +25,17 @@ const HotProductList = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-8 py-8 px-5">
+        <div className="flex flex-col items-center gap-8 py-8 px-2 sm:px-5">
             <div className="flex flex-col gap-4 items-center">
-                <h2 className="text-heading2-bold sm:text-heading1-bold tracking-wide">Hot Sellings</h2>
-                <p className="text-body-medium text-muted-foreground text-center">Shop our top-rated, hot-selling products</p>
+                <h2 className="text-heading2-bold sm:text-heading1-bold tracking-wide text-center">Hot Selling</h2>
+                <p className="text-body-medium text-muted-foreground text-center">Our most popular items!</p>
             </div>
-
             {loading ? <LoaderComp />
                 :
                 products.length === 0 ? (
                     <p className="text-body-bold">No products found</p>
                 ) : (
-                    <ProductsSlider products={products} />
+                    <ProductCards products={products} />
                 )
             }
         </div>

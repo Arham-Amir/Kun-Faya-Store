@@ -10,10 +10,18 @@ const CollectionDetails = async ({
 }) => {
   const collectionDetails = await getCollectionDetails(params.collectionId);
 
-  return (<section className="flex flex-col gap-10">
-    <CollectionHeading title={collectionDetails.title} description={collectionDetails.description} />
-    <div id="products" className="px-10 py-5 flex flex-col items-center gap-8 relative">
-      <div className="flex flex-wrap gap-16 justify-center">
+  return (<section className="flex flex-col gap-10 py-10 px-4 md:px-10">
+    <div className="flex flex-col items-center gap-4 text-center max-w-3xl mx-auto">
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+        {collectionDetails.title}
+      </h1>
+      <p className="text-lg md:text-xl text-gray-500">
+        {collectionDetails.description}
+      </p>
+    </div>
+
+    <div id="products" className="flex flex-col items-center gap-8">
+      <div className="flex flex-wrap gap-8 md:gap-16 justify-center">
         {collectionDetails.products.map((product: ProductType) => (
           <AnimatedCard key={product._id} product={product} />
         ))}
@@ -26,4 +34,3 @@ const CollectionDetails = async ({
 export default CollectionDetails;
 
 export const dynamic = "force-dynamic";
-

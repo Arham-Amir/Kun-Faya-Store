@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import useCart from "@/lib/hooks/useCart";
 import { useUser } from "@clerk/nextjs";
@@ -15,60 +15,67 @@ const Cart = () => {
   const cart = useCart();
 
   return (
-    <div className="flex gap-20 py-16 px-10 max-lg:flex-col max-sm:px-3">
-      <div className="w-2/3 max-lg:w-full">
-        <p className="text-heading3-bold">Shopping Cart</p>
-        <hr className="my-6" />
+    <div className="container mx-auto px-4 md:px-10 py-10">
+      <div className="flex gap-8 lg:gap-20 max-lg:flex-col">
+        <div className="w-full lg:w-2/3">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6">Shopping Cart</h1>
+          <hr className="my-6" />
 
-        {cart.cartItems.length === 0 ? (
-          <p className="text-body-bold">No item in cart</p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {cart.cartItems.map((cartItem) => (
-              <div key={cartItem.item._id} className="w-full flex max-sm:flex-col max-sm:gap-3 bg-card rounded-lg px-4 py-3 items-center max-sm:items-start justify-between">
-                <div className="flex items-center">
-                  <Image
-                    src={cartItem.item.media[0]}
-                    width={100}
-                    height={100}
-                    className="rounded-lg w-32 h-32 object-cover"
-                    alt="product"
-                  />
-                  <div className="flex flex-col gap-3 ml-4">
-                    <p className="text-body-bold">{cartItem.item.title}</p>
-                    {cartItem.color && (
-                      <p className="text-small-medium">{cartItem.color}</p>
-                    )}
-                    {cartItem.size && (
-                      <p className="text-small-medium">{cartItem.size}</p>
-                    )}
-                    <p className="text-small-medium">Rs. {cartItem.item.price}</p>
+          {cart.cartItems.length === 0 ? (
+            <div className="text-center py-10">
+              <p className="text-xl text-gray-500">Your cart is empty</p>
+              <p className="text-gray-400 mt-2">Add some items to get started!</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {cart.cartItems.map((cartItem) => (
+                <div key={cartItem.item._id} className="w-full flex max-sm:flex-col max-sm:gap-3 bg-card rounded-xl px-6 py-4 items-center max-sm:items-start justify-between shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-4">
+                    <Image
+                      src={cartItem.item.media[0]}
+                      width={100}
+                      height={100}
+                      className="rounded-lg w-24 h-24 object-cover"
+                      alt="product"
+                    />
+                    <div className="flex flex-col gap-2">
+                      <p className="font-bold text-lg">{cartItem.item.title}</p>
+                      {cartItem.color && (
+                        <p className="text-sm text-gray-500">Color: {cartItem.color}</p>
+                      )}
+                      {cartItem.size && (
+                        <p className="text-sm text-gray-500">Size: {cartItem.size}</p>
+                      )}
+                      <p className="font-semibold text-primary">Rs. {cartItem.item.price}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-6 items-center">
+                    <div className="flex gap-3 items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2">
+                      <MinusCircle
+                        className="hover:text-primary cursor-pointer transition-colors"
+                        onClick={() => cart.decreaseQuantity(cartItem.item._id)}
+                      />
+                      <p className="font-bold min-w-[20px] text-center">{cartItem.quantity}</p>
+                      <PlusCircle
+                        className="hover:text-primary cursor-pointer transition-colors"
+                        onClick={() => cart.increaseQuantity(cartItem.item._id)}
+                      />
+                    </div>
+
+                    <Trash
+                      className="hover:text-red-500 cursor-pointer transition-colors"
+                      onClick={() => cart.removeItem(cartItem.item._id)}
+                    />
                   </div>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-                <div className="flex gap-4 items-center">
-                  <MinusCircle
-                    className="hover:text-primary cursor-pointer"
-                    onClick={() => cart.decreaseQuantity(cartItem.item._id)}
-                  />
-                  <p className="text-body-bold">{cartItem.quantity}</p>
-                  <PlusCircle
-                    className="hover:text-primary cursor-pointer"
-                    onClick={() => cart.increaseQuantity(cartItem.item._id)}
-                  />
-                </div>
-
-                <Trash
-                  className="hover:text-primary cursor-pointer"
-                  onClick={() => cart.removeItem(cartItem.item._id)}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        <RightSummaryBox />
       </div>
-
-      <RightSummaryBox />
     </div>
   );
 };
@@ -106,31 +113,35 @@ const RightSummaryBox: React.FC = () => {
   };
 
   return (
-    <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-card rounded-lg px-4 py-5">
-      <p className="text-heading4-bold pb-4">
-        Summary{" "}
-        <span>{`(${cart.cartItems.length} ${cart.cartItems.length > 1 ? "items" : "item"})`}</span>
-      </p>
-      <div className="flex flex-col gap-4">
+    <div className="w-full lg:w-1/3 flex flex-col gap-6 bg-card rounded-xl px-6 py-6 shadow-lg h-fit sticky top-24">
+      <h2 className="text-2xl font-bold pb-2">
+        Order Summary{" "}
+        <span className="text-gray-500 text-base">{`(${cart.cartItems.length} ${cart.cartItems.length > 1 ? "items" : "item"})`}</span>
+      </h2>
+
+      <div className="flex flex-col gap-3">
         {cart.cartItems.map((cartItem) => (
-          <div key={cartItem.item._id} className="flex justify-between text-small-medium">
-            <span>{cartItem.quantity}x {cartItem.item.title}</span>
-            <span>Rs. {cartItem.item.price * cartItem.quantity}</span>
+          <div key={cartItem.item._id} className="flex justify-between text-sm">
+            <span className="text-gray-600">{cartItem.quantity}x {cartItem.item.title}</span>
+            <span className="font-semibold">Rs. {cartItem.item.price * cartItem.quantity}</span>
           </div>
         ))}
-        <div className="flex justify-between text-small-medium">
-          <span><Truck size={15} className="inline mr-1 text-red-800" />Delivery</span>
-          <span>Rs. {deliveryCharges}</span>
+        <div className="flex justify-between text-sm pt-2 border-t">
+          <span className="text-gray-600"><Truck size={16} className="inline mr-1 text-red-800" />Delivery</span>
+          <span className="font-semibold">Rs. {deliveryCharges}</span>
         </div>
       </div>
+
       <hr />
-      <div className="flex justify-between text-body-semibold">
+
+      <div className="flex justify-between text-lg font-bold">
         <span>Total Amount</span>
-        <span>Rs. {totalRounded}</span>
+        <span className="text-primary">Rs. {totalRounded}</span>
       </div>
+
       {proceed ? <ShoppingCartForm cartItems={cart.cartItems} totalAmount={totalRounded} /> : (
         <button
-          className="border rounded-lg text-body-bold text-white py-3 w-full bg-primary hover:bg-primary/80"
+          className="w-full py-3 px-6 bg-primary hover:bg-primary/90 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105"
           onClick={handleProceed}
         >
           Proceed to Checkout
@@ -204,46 +215,56 @@ const ShoppingCartForm: React.FC<{ cartItems: any[], totalAmount: number }> = ({
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <label className="text-foreground relative">Email <span className="text-red-800">*</span></label>
-          <input className="p-2 bg-background max-w-lg" type="email" {...register('email')} />
-          {errors.email && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.email.message}</p>}
+          <label className="text-sm font-medium">Email <span className="text-red-500">*</span></label>
+          <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="email" {...register('email')} />
+          {errors.email && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.email.message}</p>}
         </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">First Name <span className="text-red-500">*</span></label>
+            <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('firstName')} />
+            {errors.firstName && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.firstName.message}</p>}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">Last Name <span className="text-red-500">*</span></label>
+            <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('lastName')} />
+            {errors.lastName && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.lastName.message}</p>}
+          </div>
+        </div>
+
         <div className="flex flex-col gap-2">
-          <label className="text-foreground">Phone <span className="text-red-800">*</span></label>
-          <input className="p-2 bg-background" type="text" {...register('phone')} />
-          {errors.phone && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.phone.message}</p>}
+          <label className="text-sm font-medium">Phone <span className="text-red-500">*</span></label>
+          <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('phone')} />
+          {errors.phone && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.phone.message}</p>}
         </div>
+
         <div className="flex flex-col gap-2">
-          <label className="text-foreground">First Name <span className="text-red-800">*</span></label>
-          <input className="p-2 bg-background" type="text" {...register('firstName')} />
-          {errors.firstName && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.firstName.message}</p>}
+          <label className="text-sm font-medium">Complete Address <span className="text-red-500">*</span></label>
+          <textarea rows={3} className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none" {...register('completeAddress')} />
+          {errors.completeAddress && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.completeAddress.message}</p>}
         </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">City <span className="text-red-500">*</span></label>
+            <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('city')} />
+            {errors.city && <p className="text-xs text-red-500"><AlertCircleIcon size={12} className="inline mr-1" />{errors.city.message}</p>}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">Postal Code</label>
+            <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('postalCode')} />
+          </div>
+        </div>
+
         <div className="flex flex-col gap-2">
-          <label className="text-foreground">Last Name <span className="text-red-800">*</span></label>
-          <input className="p-2 bg-background" type="text" {...register('lastName')} />
-          {errors.lastName && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.lastName.message}</p>}
+          <label className="text-sm font-medium">Nearest Famous Place</label>
+          <input className="p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none" type="text" {...register('nearestFamousPlace')} />
         </div>
-        <div className="flex flex-col gap-2 w-full">
-          <label className="text-foreground">Complete Address <span className="text-red-800">*</span></label>
-          <textarea rows={5} className="p-2 bg-background max-w-lg" {...register('completeAddress')} />
-          {errors.completeAddress && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.completeAddress.message}</p>}
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-foreground">Nearest Famous Place</label>
-          <input className="p-2 bg-background" type="text" {...register('nearestFamousPlace')} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-foreground">City <span className="text-red-800">*</span></label>
-          <input className="p-2 bg-background" type="text" {...register('city')} />
-          {errors.city && <p className="text-xs text-red-800"><AlertCircleIcon size={15} className="inline mr-1" />{errors.city.message}</p>}
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-foreground">Postal Code</label>
-          <input className="p-2 bg-background" type="text" {...register('postalCode')} />
-        </div>
-        <button className="btn bg-primary hover:bg-primary/80 text-white border-2 border-white" type="submit">Confirm Order</button>
+
+        <button className="w-full mt-4 py-3 px-6 bg-primary hover:bg-primary/90 text-white font-bold rounded-full transition-all duration-300" type="submit">Confirm Order</button>
       </form>
     </div>
   );

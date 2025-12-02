@@ -52,7 +52,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.colors.map((color, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${selectedColor === color && "bg-card text-card-foreground"
+                className={`border border-black px-4 py-2 rounded-lg cursor-pointer transition-all hover:bg-gray-50 ${selectedColor === color && "bg-black text-white hover:bg-black"
                   }`}
                 onClick={() => setSelectedColor(color)}
               >
@@ -70,7 +70,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.sizes.map((size, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${selectedSize === size && "bg-card text-card-foreground"
+                className={`border border-black px-4 py-2 rounded-lg cursor-pointer transition-all hover:bg-gray-50 ${selectedSize === size && "bg-black text-white hover:bg-black"
                   }`}
                 onClick={() => setSelectedSize(size)}
               >

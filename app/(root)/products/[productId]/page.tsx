@@ -16,23 +16,25 @@ const ProductDetails = async ({ params }: { params: { productId: string } }) => 
 
   return (
     <>
-      <div className="flex justify-center items-start gap-16 py-10 px-5 max-md:flex-col max-md:items-center">
-        <Gallery productInfo={productDetails} productMedia={mediaMerged} />
-        <ProductInfo productInfo={productDetails} />
-      </div>
-      <div className="flex flex-col items-center px-10 py-5 max-md:px-3">
-        {
-          mediaMerged.map((media, i) => {
+      <div className="container mx-auto px-4 md:px-10">
+        <div className="flex justify-center items-start gap-8 md:gap-16 py-10 max-md:flex-col max-md:items-center">
+          <Gallery productInfo={productDetails} productMedia={mediaMerged} />
+          <ProductInfo productInfo={productDetails} />
+        </div>
+
+        <div className="flex flex-col items-center py-10 gap-4">
+          {mediaMerged.map((media, i) => {
             return <MediaComponent key={i} media={media} />
-          })
+          })}
+        </div>
+
+        {relatedProducts.length != 0 &&
+          <div className="flex gap-8 flex-col items-center py-10">
+            <h2 className="text-3xl md:text-4xl font-bold">Related Products</h2>
+            <ProductCards products={relatedProducts} />
+          </div>
         }
       </div>
-      {relatedProducts.length != 0 &&
-        <div className="flex gap-8 flex-col items-center px-10 py-5 max-md:px-3">
-          <p className="text-heading3-bold">Related Products</p>
-          <ProductCards products={relatedProducts} />
-        </div>
-      }
     </>
   )
 }
@@ -48,10 +50,10 @@ function MediaComponent({ media }: { media: string }) {
     return videoExtensions.some(extension => media.includes(extension));
   };
   return isVideo(media) ? (
-    <video controls className="max-w-full h-auto">
+    <video controls className="max-w-full h-auto rounded-lg shadow-lg">
       <source src={media} type="video/mp4" />
     </video>
   ) : (
-    <Image src={media} alt="Media content" width={800} height={600} className="max-w-full h-auto shadow-xl border" />
+    <Image src={media} alt="Media content" width={800} height={600} className="max-w-full h-auto shadow-xl border rounded-lg" />
   );
 }

@@ -2,19 +2,20 @@ import Collections from "@/components/Collections";
 import Hero from "@/components/Hero";
 import HotProductList from "@/components/HotProductList";
 import LatestP from "@/components/LatestP";
-import CollectionsLatestProduct from "@/components/CollectionsLatestProduct";
-import SaleBanner from "@/components/SaleBanner";
-import Image from "next/image";
+import Features from "@/components/Features";
+// import CollectionsLatestProduct from "@/components/CollectionsLatestProduct";
+// import SaleBanner from "@/components/SaleBanner";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="flex flex-col gap-10 pb-10">
       <Hero />
-      <LatestP />
+      <Features />
       <Collections />
-      <CollectionsLatestProduct />
-      <SaleBanner />
       <HotProductList />
+      <LatestP />
+      {/* <CollectionsLatestProduct /> */}
+      {/* <SaleBanner /> */}
     </div>
   );
 }

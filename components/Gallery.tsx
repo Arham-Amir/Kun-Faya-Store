@@ -7,26 +7,38 @@ const Gallery = ({ productInfo, productMedia }: { productInfo: ProductType, prod
   const [mainImage, setMainImage] = useState(productMedia[0]);
 
   return (
-    <div className="flex flex-col items-center gap-3 w-full max-w-[400px] 2xl:max-w-[500px] relative">
-      {productInfo.headline != "" && <span className="absolute left-3 top-3 text-base-bold font-bold text-transparent min-w-fit z-10 gradient-text animate-gradient">{productInfo.headline}</span>}
-      <Image
-        src={mainImage}
-        width={500}
-        height={500}
-        alt="product"
-        className="w-full h-auto rounded-lg shadow-xl object-cover"
-      />
-      <div className="flex gap-2 w-full overflow-x-scroll">
+    <div className="flex flex-col gap-4 w-full max-w-[500px]">
+      <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-lg group">
+        {productInfo.headline != "" && (
+          <span className="absolute left-4 top-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-primary z-10 shadow-sm">
+            {productInfo.headline}
+          </span>
+        )}
+        <Image
+          src={mainImage}
+          fill
+          alt={productInfo.title}
+          className="object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out cursor-zoom-in"
+        />
+      </div>
+
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide snap-x">
         {productMedia.map((image, index) => (
-          <Image
+          <div
             key={index}
-            src={image}
-            height={200}
-            width={200}
-            alt="product"
-            className={`min-w-20 max-w-20 h-20 rounded-lg object-cover cursor-pointer ${mainImage === image ? "border-2 border-black" : ""}`}
+            className={`relative min-w-[80px] w-20 h-20 rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-200 snap-start ${mainImage === image
+                ? "border-primary ring-2 ring-primary/20"
+                : "border-transparent hover:border-gray-300"
+              }`}
             onClick={() => setMainImage(image)}
-          />
+          >
+            <Image
+              src={image}
+              fill
+              alt={`Product view ${index + 1}`}
+              className="object-cover object-center"
+            />
+          </div>
         ))}
       </div>
     </div>

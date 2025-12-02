@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { getLatestProducts } from '@/lib/actions/actions'; // Adjust the path as needed
+import { getLatestProducts } from '@/lib/actions/actions';
 import LoaderComp from './LoaderComp';
 import ProductCards from './productsGrid';
 
@@ -43,4 +43,3 @@ const LatestP = () => {
 };
 
 export default LatestP;
-
