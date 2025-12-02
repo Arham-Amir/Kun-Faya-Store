@@ -8,6 +8,37 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+const AnnouncementBar = () => {
+  const [index, setIndex] = useState(0);
+  const messages = [
+    "Free Shipping on Orders Over $100 🚚",
+    "New Summer Collection is Live! ☀️",
+    "Get 50% OFF on Selected Items 🔥",
+    "Sign up for our Newsletter for Exclusive Deals 📩"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="bg-primary text-primary-foreground py-2 text-center text-sm font-medium relative overflow-hidden h-9">
+      {messages.map((msg, i) => (
+        <div
+          key={i}
+          className={`absolute w-full top-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out ${i === index ? "opacity-100 translate-y-[-50%]" : "opacity-0 translate-y-[50%]"
+            }`}
+        >
+          {msg}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -66,75 +97,78 @@ const Navbar: React.FC = () => {
     : "w-full sticky top-0 z-50 transition-all duration-300 bg-black py-4";
 
   return (
-    <div className={navbarClasses}>
-      <div className="container mx-auto px-4 md:px-10 flex justify-between items-center text-white">
-        <Link href="/">
-          <Image src="/logo-dark.png" alt="logo" width={140} height={100} className="object-contain w-32 md:w-40" />
-        </Link>
-
-        <div className="flex gap-8 text-base-medium max-md:hidden items-center">
-          <Link
-            href="/"
-            className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/" ? "text-primary" : ""}`}
-          >
-            Home
-            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/" ? "w-full" : ""}`}></span>
-          </Link>
-          <Link
-            href="/collections"
-            className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/collections" ? "text-primary" : ""}`}
-          >
-            Collections
-            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/collections" ? "w-full" : ""}`}></span>
-          </Link>
-          <Link
-            href={user ? "/wishlist" : "/sign-in"}
-            className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/wishlist" ? "text-primary" : ""}`}
-          >
-            Wishlist
-            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/wishlist" ? "w-full" : ""}`}></span>
-          </Link>
-          <Link
-            href={user ? "/orders" : "/sign-in"}
-            className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/orders" ? "text-primary" : ""}`}
-          >
-            Orders
-            <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/orders" ? "w-full" : ""}`}></span>
-          </Link>
-        </div>
-
-        <div className="relative flex gap-4 items-center">
-          <Link
-            href="/cart"
-            className="group flex items-center gap-2 hover:text-primary transition-colors duration-200"
-          >
-            <div className="relative">
-              <ShoppingCart className="w-6 h-6" />
-              {cart.cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                  {cart.cartItems.length}
-                </span>
-              )}
-            </div>
-            <span className="text-base-medium max-md:hidden">Cart</span>
+    <>
+      <AnnouncementBar />
+      <div className={navbarClasses}>
+        <div className="container mx-auto px-4 md:px-10 flex justify-between items-center text-white">
+          <Link href="/">
+            <Image src="/logo-dark.png" alt="logo" width={140} height={100} className="object-contain w-32 md:w-40" />
           </Link>
 
-          {user ? (
-            <div className="">
-              <UserButton afterSignOutUrl="/sign-in" />
-            </div>
-          ) : (
-            <Link href="/sign-in" className="hover:text-primary transition-colors duration-200">
-              <CircleUserRound className="w-6 h-6" />
+          <div className="flex gap-8 text-base-medium max-md:hidden items-center">
+            <Link
+              href="/"
+              className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/" ? "text-primary" : ""}`}
+            >
+              Home
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/" ? "w-full" : ""}`}></span>
             </Link>
-          )}
+            <Link
+              href="/collections"
+              className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/collections" ? "text-primary" : ""}`}
+            >
+              Collections
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/collections" ? "w-full" : ""}`}></span>
+            </Link>
+            <Link
+              href={user ? "/wishlist" : "/sign-in"}
+              className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/wishlist" ? "text-primary" : ""}`}
+            >
+              Wishlist
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/wishlist" ? "w-full" : ""}`}></span>
+            </Link>
+            <Link
+              href={user ? "/orders" : "/sign-in"}
+              className={`hover:text-primary transition-colors duration-200 relative group ${pathname === "/orders" ? "text-primary" : ""}`}
+            >
+              Orders
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${pathname === "/orders" ? "w-full" : ""}`}></span>
+            </Link>
+          </div>
 
-          <HamBurger toggleActive={toggleActive} />
-          <MobileMenu user={user} active={active} toggleActive={toggleActive} menuRef={menuRef} pathname={pathname} />
-          <Overlay active={active} toggleActive={toggleActive} />
+          <div className="relative flex gap-4 items-center">
+            <Link
+              href="/cart"
+              className="group flex items-center gap-2 hover:text-primary transition-colors duration-200"
+            >
+              <div className="relative">
+                <ShoppingCart className="w-6 h-6" />
+                {cart.cartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    {cart.cartItems.length}
+                  </span>
+                )}
+              </div>
+              <span className="text-base-medium max-md:hidden">Cart</span>
+            </Link>
+
+            {user ? (
+              <div className="">
+                <UserButton afterSignOutUrl="/sign-in" />
+              </div>
+            ) : (
+              <Link href="/sign-in" className="hover:text-primary transition-colors duration-200">
+                <CircleUserRound className="w-6 h-6" />
+              </Link>
+            )}
+
+            <HamBurger toggleActive={toggleActive} />
+            <MobileMenu user={user} active={active} toggleActive={toggleActive} menuRef={menuRef} pathname={pathname} />
+            <Overlay active={active} toggleActive={toggleActive} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

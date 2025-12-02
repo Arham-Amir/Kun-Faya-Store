@@ -3,8 +3,8 @@ import Hero from "@/components/Hero";
 import HotProductList from "@/components/HotProductList";
 import LatestP from "@/components/LatestP";
 import Features from "@/components/Features";
-// import CollectionsLatestProduct from "@/components/CollectionsLatestProduct";
-// import SaleBanner from "@/components/SaleBanner";
+
+import Newsletter from "@/components/Newsletter";
 
 export default function Home() {
   return (
@@ -12,13 +12,12 @@ export default function Home() {
       <Hero />
       <Features />
       <Collections />
+
       <HotProductList />
       <LatestP />
-      {/* <CollectionsLatestProduct /> */}
-      {/* <SaleBanner /> */}
+      <Newsletter />
     </div>
   );
 }
 
 export const dynamic = "force-dynamic";
-
