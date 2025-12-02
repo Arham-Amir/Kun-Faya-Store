@@ -38,10 +38,18 @@ export const getProducts = async () => {
   }
 }
 
-export const getLatestProducts = async () => {
+export const getLatestProducts = async (collectionId?: string) => {
   try {
     await connectToDB();
-    const products = await Product.find().sort({ createdAt: "desc" });
+
+    let products;
+
+    if (collectionId) {
+      products = await Product.find({ collections: collectionId }).sort({ createdAt: "desc" });
+    } else {
+      products = await Product.find().sort({ createdAt: "desc" });
+    }
+
     if (products.length > 0) {
       // Shuffle products randomly and return 8
       const shuffled = [...products].sort(() => Math.random() - 0.5);
